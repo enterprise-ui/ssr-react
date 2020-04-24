@@ -4,7 +4,7 @@
   "description": "SSR React Framework",
   "scripts": {
     "bootstrap": "lerna bootstrap",
-    "build": "lerna run core:build"
+    "build": "lerna run core:build && lerna run example:build"
   },
   "author": "@FeHHix",
   "private": true,

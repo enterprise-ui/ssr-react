@@ -4,12 +4,6 @@ const merge = require('webpack-merge');
 const baseConfig = require('./webpack.common');
 
 module.exports = merge(baseConfig, {
-    mode: 'production',
-
-    output: {
-        filename: 'core.production.min.js',
-    },
-
     optimization: {
         minimizer: [
             new TerserPlugin({
@@ -18,9 +12,12 @@ module.exports = merge(baseConfig, {
                 parallel: true,
             }),
         ],
+        splitChunks: {
+            chunks: 'all',
+        },
     },
 
     plugins: [
-        // new BundleAnalyzerPlugin(),
+        new BundleAnalyzerPlugin(),
     ],
 });

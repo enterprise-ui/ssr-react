@@ -1,13 +1,14 @@
 {
   "name": "@ssr-react/domain-example",
   "version": "1.0.0",
-  "description": "Server side rendering project",
+  "description": "Domain example app",
   "engines": {
     "node": ">= 10.14.2"
   },
-  "main": "public/main.js",
+  "main": "public/index.js",
+  "types": "public/types/index.d.ts",
   "scripts": {
-    "articles:build": "yarn run webpack"
+    "example:build": "yarn run webpack"
   },
   "license": "MIT",
   "peerDependencies": {
@@ -39,6 +40,7 @@
     "@babel/preset-typescript": "7.3.3",
     "@loadable/babel-plugin": "^5.12.0",
     "@loadable/webpack-plugin": "^5.12.0",
+    "@types/react-router-dom": "^5.1.4",
     "babel-loader": "^8.0.6",
     "babel-minify-webpack-plugin": "^0.3.1",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
