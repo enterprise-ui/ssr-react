@@ -1,0 +1,16 @@
+require('axios');
+require('prop-types');
+require('react');
+require('react-dom');
+require('react-helmet');
+require('react-lazy-load-image-component');
+require('react-redux');
+require('react-router-config');
+require('react-router-dom');
+require('redux');
+require('redux-devtools-extension');
+require('redux-saga');
+require('redux-thunk');
+require('redux');
+require('redux');
+require('@loadable/component');

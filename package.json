@@ -1,0 +1,32 @@
+{
+  "name": "ssr-react",
+  "version": "1.0.0",
+  "description": "SSR React Framework",
+  "scripts": {
+    "bootstrap": "lerna bootstrap"
+  },
+  "author": "@FeHHix",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "devDependencies": {
+    "husky": "^4.2.3",
+    "lerna": "^3.20.2",
+    "lint-staged": "^10.1.1",
+    "prettier": "^1.19.1",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-plugin-prettier": "^2.0.1"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,css,json,md}": [
+      "prettier --write",
+      "git add"
+    ]
+  }
+}
