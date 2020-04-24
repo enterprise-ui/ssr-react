@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "SSR React Framework",
   "scripts": {
-    "bootstrap": "lerna bootstrap"
+    "bootstrap": "lerna bootstrap",
+    "build": "lerna run core:build"
   },
   "author": "@FeHHix",
   "private": true,

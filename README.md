@@ -3,6 +3,5 @@
 ```
 $ yarn
 $ yarn bootstrap
-$ yarn start
-$ curl localhost:3000
+$ yarn build
 ```
