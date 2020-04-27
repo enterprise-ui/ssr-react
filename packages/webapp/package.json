@@ -5,12 +5,9 @@
   "engines": {
     "node": ">= 10.14.2"
   },
-  "main": "src/index.js",
+  "main": "src/index.ts",
   "scripts": {
     "start": "yarn run dev",
-    "start-prod": "yarn run prod",
-    "build:prod": "rm -rf build && rm -rf public && webpack  --config webpack.server.js && webpack -p --config webpack.client.prod.js --mode production",
-    "heroku-postbuild": "npm install && npm run build:prod",
     "dev": "npm run build-server && npm-run-all --parallel dev:*",
     "dev:build-server": "webpack --config webpack.server.js --watch",
     "dev:build-client": "webpack --config webpack.client.js --watch",
@@ -20,14 +17,14 @@
     "prod:build-client": "yarn run webpack-prod",
     "prod:server": "nodemon --watch public --exec \"node public/server.js\"",
     "build-server": "webpack --config webpack.server.js",
-    "webpack-prod": "webpack -p --progress --config webpack.client.prod.js --mode production",
-    "precommit": "pretty-quick --staged"
+    "webpack-prod": "webpack -p --progress --config webpack.client.prod.js"
   },
   "license": "MIT",
   "dependencies": {
     "@babel/polyfill": "^7.8.3",
     "@loadable/component": "^5.12.0",
     "@loadable/server": "^5.12.0",
+    "@ssr-react/core": "1.0.0",
     "@ssr-react/domain-example": "1.0.0",
     "axios": "0.19.2",
     "compression": "^1.7.4",
@@ -59,6 +56,9 @@
     "@babel/preset-typescript": "7.3.3",
     "@loadable/babel-plugin": "^5.12.0",
     "@loadable/webpack-plugin": "^5.12.0",
+    "@types/compression": "^1.7.0",
+    "@types/loadable__component": "^5.10.0",
+    "@types/react-router-config": "^5.0.1",
     "babel-loader": "^8.0.6",
     "babel-minify-webpack-plugin": "^0.3.1",
     "babel-plugin-transform-react-remove-prop-types": "^0.4.24",

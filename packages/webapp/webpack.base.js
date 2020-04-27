@@ -1,17 +1,15 @@
 module.exports = {
-  module: {
-    rules: [
-      {
-        test: /\.js?$/,
-        loader: 'babel-loader',
-        exclude: /node_modules/,
-        options: {
-          presets: [
-            '@babel/preset-react',
-            ['@babel/env', { targets: { browsers: ['last 2 versions'] } }]
-          ]
-        }
-      }
-    ]
-  }
+    resolve: {
+        extensions: ['.ts', '.tsx', '.js'],
+    },
+
+    module: {
+        rules: [
+            {
+                test: /\.ts|.tsx$/,
+                exclude: /(node_modules|public)/,
+                use: ['babel-loader', 'ts-loader'],
+            },
+        ],
+    },
 };

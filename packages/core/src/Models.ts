@@ -1,6 +1,6 @@
 import React from 'react';
-import {Task} from 'redux-saga';
 import {Store} from 'redux';
+import {Task} from 'redux-saga';
 
 interface IStaticProps {
     isServer?: boolean;

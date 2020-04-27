@@ -1,18 +1,15 @@
 {
   "presets": [
-    "@babel/preset-env",
-    "@babel/preset-react"
+    "@babel/react",
+    "@babel/typescript",
+    [
+      "@babel/env",
+      {
+          "modules": false
+      }
+    ]
   ],
   "plugins": [
-    ["@babel/plugin-proposal-decorators", { "legacy": true }],
-    ["@babel/plugin-proposal-class-properties", { "loose": true }],
     "@loadable/babel-plugin"
-  ],
-  "env": {
-    "production": {
-      "plugins": [
-        "transform-react-remove-prop-types"
-      ]
-    }
-  }
+  ]
 }
