@@ -1,7 +1,7 @@
-import {IArticle} from 'models';
 import React from 'react';
 import {LazyLoadImage} from 'react-lazy-load-image-component';
 import {connect} from 'react-redux';
+import {IArticle} from '../models';
 
 interface IStateProps {
     articles: IArticle[];

@@ -5,6 +5,10 @@ const baseConfig = require('./webpack.common');
 module.exports = merge(baseConfig, {
     mode: 'development',
 
+    output: {
+        filename: '[name].development.js',
+    },
+
     plugins: [
         new CleanWebpackPlugin(),
     ],

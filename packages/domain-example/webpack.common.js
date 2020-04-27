@@ -1,22 +1,19 @@
+const CopyPlugin = require('copy-webpack-plugin');
 const path = require('path');
 
 module.exports = {
     devtool: 'inline-source-map',
 
     entry: {
-        articles: './src/pages/ArticleListPage.ts',
-        home: './src/pages/HomePage.ts',
+        articles: './src/pages/ArticleListPage.tsx',
+        home: './src/pages/HomePage.tsx',
         index: './src/index.ts',
-        routes: './src/Routes.ts',
+        routes: './src/routes.ts'
     },
 
     output: {
         globalObject: 'this',
-        library: 'main',
-        libraryTarget: 'umd',
-        filename: '[name].js',
-        chunkFilename: '[name].chunk.js',
-        path: path.resolve(__dirname, 'public'),
+        path: path.resolve(__dirname, 'public/cjs'),
     },
 
     resolve: {
@@ -34,7 +31,6 @@ module.exports = {
             commonjs: 'react-dom',
             commonjs2: 'react-dom',
         },
-        'react-redux': 'react-redux',
         redux: {
             root: 'Redux',
             commonjs: 'redux',
@@ -55,7 +51,14 @@ module.exports = {
             commonjs: '@babel/runtime/regenerator',
             commonjs2: '@babel/runtime/regenerator',
         },
+        'react-router-config': 'react-router-config',
+        'react-router-dom': 'ReactRouterDOM',
+        'react-redux': 'react-redux',
+        'react-lazy-load-image-component': 'react-lazy-load-image-component',
+        'react-helmet': 'react-helmet',
     },
+
+    plugins: [new CopyPlugin([{from: path.resolve(__dirname, './src/cjs/index.js'), to: path.resolve(__dirname, 'public')}])],
 
     module: {
         rules: [
