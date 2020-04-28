@@ -9,7 +9,7 @@ const config = {
     devtool: 'inline-source-map',
 
     entry: {
-        main: path.resolve(__dirname, './src/client/client.ts'),
+        main: path.resolve(__dirname, './src/client/client.tsx'),
     },
 
     output: {

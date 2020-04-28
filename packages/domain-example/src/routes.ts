@@ -1,14 +1,14 @@
-import HomePage from './pages/HomePage';
 import ArticleListPage from './pages/ArticleListPage';
+import HomePage from './pages/HomePage';
 
-export default [
-  {
-    component: HomePage,
-    path: '/',
-    exact: true
-  },
-  {
-    component: ArticleListPage,
-    path: '/articles/:id'
-  },
+export const routes = [
+    {
+        component: HomePage,
+        path: '/',
+        exact: true,
+    },
+    {
+        component: ArticleListPage,
+        path: '/articles/:id',
+    },
 ];

@@ -1,6 +1,6 @@
 import {FETCH_ARTICLES_SUCCESS} from '../consts';
 
-export default (state = [], action) => {
+const reducer = (state = [], action) => {
     switch (action.type) {
         case FETCH_ARTICLES_SUCCESS:
             return action.payload;
@@ -9,3 +9,5 @@ export default (state = [], action) => {
             return state;
     }
 };
+
+export {reducer};

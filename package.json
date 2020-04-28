@@ -4,7 +4,8 @@
   "description": "SSR React Framework",
   "scripts": {
     "bootstrap": "lerna bootstrap",
-    "build": "lerna run core:build && lerna run example:build"
+    "build": "lerna run core:build && lerna run example:build --stream",
+    "start": "lerna run webapp:start --parallel"
   },
   "author": "@FeHHix",
   "private": true,

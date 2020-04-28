@@ -1,6 +1,6 @@
-import {Reducers as articles} from '@ssr-react/domain-example';
+import {DomainReducers} from '@ssr-react/domain-example';
 import {combineReducers} from 'redux';
 
-export default combineReducers({
-    domainExampleApp: articles,
+export const rootReducer = combineReducers({
+    domainExampleApp: DomainReducers,
 });

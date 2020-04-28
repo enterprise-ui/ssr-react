@@ -1,7 +1,7 @@
 import axios from 'axios';
 import {call, put, takeEvery} from 'redux-saga/effects';
-import config from '../../config';
-import {FETCH_ARTICLES_BEGIN, FETCH_ARTICLES_FAILURE, FETCH_ARTICLES_SUCCESS} from '../consts';
+import config from '../config';
+import {FETCH_ARTICLES_BEGIN, FETCH_ARTICLES_FAILURE, FETCH_ARTICLES_SUCCESS} from './consts';
 
 export const fetchArticles = (source) => {
     let url;
@@ -29,4 +29,4 @@ function* rootSaga() {
     yield takeEvery(FETCH_ARTICLES_BEGIN, getArticles);
 }
 
-export default rootSaga;
+export {rootSaga};

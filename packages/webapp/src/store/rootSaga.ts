@@ -1,6 +1,6 @@
-import {Sagas} from '@ssr-react/domain-example';
+import {DomainSagas} from '@ssr-react/domain-example';
 import {fork} from 'redux-saga/effects';
 
 export default function* rootSaga() {
-    yield fork(Sagas);
+    yield fork(DomainSagas);
 }

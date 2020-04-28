@@ -1,5 +1,5 @@
-import Reducers from './reducers';
-import Sagas from './store/rootSaga';
-import Routes from './Routes';
+import {reducers} from './reducers';
+import {rootSaga} from './rootSaga';
+import {routes} from './Routes';
 
-export {Reducers, Routes, Sagas};
+export {reducers as DomainReducers, routes as DomainRoutes, rootSaga as DomainSagas};

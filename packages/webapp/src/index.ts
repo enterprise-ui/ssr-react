@@ -23,7 +23,7 @@ app.use(
     })
 );
 
-const port = process.env.PORT || 3001;
+const port = process.env.PORT || 3000;
 
 app.use(express.static('public'));
 
@@ -31,9 +31,11 @@ app.get('*', (req: Request, res: Response) => {
     const params = req.params[0].split('/');
     const id = params[2];
 
-    const store = createStore(null, {isServer: true, req});
+    const store = createStore({isServer: true, req});
 
     const routes: IMatchedRouteLoadable[] = matchRoutes(Routes, req.path);
+
+    console.log(routes);
 
     const preloadAll: Promise<TRouteComponent>[] = routes
         .map(({route: {component}}) =>
@@ -48,9 +50,12 @@ app.get('*', (req: Request, res: Response) => {
             return null;
         });
 
+    console.log(preloadAll);
+
     Promise.all(preloadAll).then((components) => {
         const promises = components
             .map((component) => {
+                console.log(component);
                 return component.getInitialProps
                     ? component.getInitialProps({
                           store,

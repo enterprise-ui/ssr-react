@@ -13,6 +13,8 @@ module.exports = {
 
     output: {
         globalObject: 'this',
+        library: 'domain',
+        libraryTarget: 'umd',
         path: path.resolve(__dirname, 'public/cjs'),
     },
 
@@ -31,15 +33,16 @@ module.exports = {
             commonjs: 'react-dom',
             commonjs2: 'react-dom',
         },
-        redux: {
-            root: 'Redux',
-            commonjs: 'redux',
-            commonjs2: 'redux',
-        },
         'redux-saga': {
             root: 'ReduxSaga',
             commonjs: 'redux-saga',
             commonjs2: 'redux-saga',
+        },
+        'react-redux': 'react-redux',
+        redux: {
+            root: 'Redux',
+            commonjs: 'redux',
+            commonjs2: 'redux',
         },
         'redux-saga/effects': {
             root: 'ReduxSagaEffects',
@@ -53,7 +56,6 @@ module.exports = {
         },
         'react-router-config': 'react-router-config',
         'react-router-dom': 'ReactRouterDOM',
-        'react-redux': 'react-redux',
         'react-lazy-load-image-component': 'react-lazy-load-image-component',
         'react-helmet': 'react-helmet',
     },
