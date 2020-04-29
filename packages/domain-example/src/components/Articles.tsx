@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import {IArticle} from '../models';
 
 interface IStateProps {
-    articles: IArticle[];
+    articles?: IArticle[];
 }
 
 interface IOwnProps {
@@ -13,7 +13,7 @@ interface IOwnProps {
 
 type TProps = IOwnProps & IStateProps;
 
-const Articles: React.FunctionComponent<TProps> = ({articles, onReadArticle}) => (
+const Articles: React.FunctionComponent<TProps> = ({articles = [], onReadArticle}) => (
     <React.Fragment>
         {articles.map((article) => (
             <div className="col s12 m6 l6 xl4" key={article.title}>
@@ -37,7 +37,7 @@ const Articles: React.FunctionComponent<TProps> = ({articles, onReadArticle}) =>
 
 const mapStateToProps = (state) => {
     return {
-        articles: state.articles,
+        articles: state.domainExampleApp.articles,
     };
 };
 

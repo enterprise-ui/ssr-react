@@ -12,12 +12,17 @@ export const fetchArticles = (source) => {
         url = `https://newsapi.org/v2/top-headlines?country=us&apiKey=${config.apikey}`;
     }
 
+    console.log(url);
+
     return axios.get(url);
 };
 
 function* getArticles(action) {
+    console.log('getArticles');
     try {
         const {data} = yield call(fetchArticles, action.payload);
+
+        console.log(data);
 
         yield put({type: FETCH_ARTICLES_SUCCESS, payload: data.articles});
     } catch (e) {

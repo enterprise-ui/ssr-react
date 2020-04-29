@@ -23,4 +23,6 @@ const routes: IRoute[] = [
     },
 ];
 
-export {routes};
+const paths = ['/', '/articles/:id'];
+
+export {paths, routes};

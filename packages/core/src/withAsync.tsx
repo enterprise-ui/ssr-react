@@ -1,6 +1,6 @@
-import {END} from 'redux-saga';
 import React, {useEffect} from 'react';
 import {useStore} from 'react-redux';
+import {END} from 'redux-saga';
 import {IReactFunctionComponent, TReactComponentType} from './Models';
 import {isInitialRender, setInitialRender} from './Utils';
 
@@ -19,6 +19,7 @@ function withAsync<TProps, C extends TReactComponentType<TProps>>(TargetComponen
     EnhancedComponent.displayName = `withAsync.(${TargetComponent.displayName || TargetComponent.name || 'TargetComponent'})`;
 
     EnhancedComponent.getInitialProps = async ({props, store}) => {
+        console.log('withAsync.getInitialProps');
         const {isServer} = props;
         let staticProps = {};
 
@@ -29,7 +30,8 @@ function withAsync<TProps, C extends TReactComponentType<TProps>>(TargetComponen
 
             if (isServer) {
                 store.dispatch(END);
-                await store.sagaTask.toPromise();
+                const resp = await store.sagaTask.toPromise();
+                console.log();
             }
         }
 

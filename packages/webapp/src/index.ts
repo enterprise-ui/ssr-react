@@ -1,11 +1,11 @@
 import '@babel/polyfill';
 import {LoadableComponent} from '@loadable/component';
 import compression from 'compression';
-import express, {Request, Response} from 'express';
+import express, {NextFunction, Request, Response} from 'express';
 import {StaticRouterContext} from 'react-router';
 import {matchRoutes} from 'react-router-config';
 import {IMatchedRouteLoadable, TRouteComponent} from './client/Models';
-import {routes as Routes} from './client/Routes';
+import {paths, routes as Routes} from './client/Routes';
 import renderer from './helpers/renderer';
 import createStore from './store/createStore';
 
@@ -14,6 +14,52 @@ const app = express();
 function shouldCompress(req, res) {
     if (req.headers['x-no-compression']) return false;
     return compression.filter(req, res);
+}
+
+function handleRequest(req: Request, res: Response, next: NextFunction) {
+    const store = createStore({isServer: true, req});
+
+    const routes: IMatchedRouteLoadable[] = matchRoutes(Routes, req.path);
+
+    const preloadAll: Promise<TRouteComponent>[] = routes.map(({route: {component}}) => {
+        const loadable = component as LoadableComponent<any>;
+
+        return loadable.load ? loadable.load() : new Promise((resolve) => resolve(loadable));
+    });
+
+    Promise.all(preloadAll)
+        .then((components) => {
+            const promises = components.map((component) => {
+                const loadable = (component as any).default || component;
+                const routeProps = {match: {params: {id: req.params.id}}};
+                const ctx = {props: {...routeProps, isServer: true}, store};
+
+                return loadable.getInitialProps ? loadable.getInitialProps(ctx) : null;
+            });
+
+            console.log(promises);
+
+            Promise.all(promises)
+                .then((props) => {
+                    console.log('renderer');
+                    console.log(props);
+                    console.log(store.getState());
+                    const context: StaticRouterContext = {};
+                    const content = renderer(req, store, context);
+
+                    if (context.statusCode === 404) {
+                        res.status(404);
+                    }
+
+                    res.send(content);
+                })
+                .catch((err) => {
+                    next(err);
+                });
+        })
+        .catch((err) => {
+            next(err);
+        });
 }
 
 app.use(
@@ -27,63 +73,20 @@ const port = process.env.PORT || 3000;
 
 app.use(express.static('public'));
 
-app.get('*', (req: Request, res: Response) => {
-    const params = req.params[0].split('/');
-    const id = params[2];
+app.get(paths, handleRequest);
 
-    const store = createStore({isServer: true, req});
-
-    const routes: IMatchedRouteLoadable[] = matchRoutes(Routes, req.path);
-
-    console.log(routes);
-
-    const preloadAll: Promise<TRouteComponent>[] = routes
-        .map(({route: {component}}) =>
-            (component as LoadableComponent<any>).load ? (component as LoadableComponent<any>).load() : new Promise(() => component)
-        )
-        .map((promise) => {
-            if (promise) {
-                return new Promise((resolve, reject) => {
-                    promise.then(resolve).catch(reject);
-                });
-            }
-            return null;
+app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
+    if (req.xhr) {
+        res.status(500).send({
+            errorCode: 500,
+            message: 'Internal Server Error',
         });
-
-    console.log(preloadAll);
-
-    Promise.all(preloadAll).then((components) => {
-        const promises = components
-            .map((component) => {
-                console.log(component);
-                return component.getInitialProps
-                    ? component.getInitialProps({
-                          store,
-                          props: {match: {params: {id}}, isServer: true},
-                      })
-                    : null;
-            })
-            .map((promise) => {
-                if (promise) {
-                    return new Promise((resolve, reject) => {
-                        promise.then(resolve).catch(reject);
-                    });
-                }
-                return null;
-            });
-
-        Promise.all(promises).then(() => {
-            const context: StaticRouterContext = {};
-            const content = renderer(req, store, context);
-
-            if (context.statusCode === 404) {
-                res.status(404);
-            }
-
-            res.send(content);
-        });
-    });
+    } else {
+        next(err);
+    }
 });
+
+app.use(handleRequest);
 
 app.listen(port, () => {
     console.log(`Listening on port: ${port}`);

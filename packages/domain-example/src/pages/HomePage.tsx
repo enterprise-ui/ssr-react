@@ -22,7 +22,8 @@ type TProps = IOwnProps & RouteComponentProps<IRouteProps>;
 
 @AsyncDecorator
 class HomePage extends React.Component<TProps, IState> {
-    static async getInitialProps(store) {
+    static async getInitialProps({store}) {
+        console.log('HomePage.getInitialProps');
         fetchArticles()(store.dispatch);
 
         return {};

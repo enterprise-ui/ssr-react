@@ -33,16 +33,16 @@ module.exports = {
             commonjs: 'react-dom',
             commonjs2: 'react-dom',
         },
-        'redux-saga': {
-            root: 'ReduxSaga',
-            commonjs: 'redux-saga',
-            commonjs2: 'redux-saga',
-        },
         'react-redux': 'react-redux',
         redux: {
             root: 'Redux',
             commonjs: 'redux',
             commonjs2: 'redux',
+        },
+        'redux-saga': {
+            root: 'ReduxSaga',
+            commonjs: 'redux-saga',
+            commonjs2: 'redux-saga',
         },
         'redux-saga/effects': {
             root: 'ReduxSagaEffects',

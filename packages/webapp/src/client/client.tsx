@@ -8,7 +8,7 @@ import {BrowserRouter} from 'react-router-dom';
 import createStore from '../store/createStore';
 import {routes} from './Routes';
 
-const store = createStore(window.__PRELOADED_STATE__, {});
+const store = createStore({isServer: false}, window.__PRELOADED_STATE__);
 
 loadableReady(() => {
     ReactDOM.hydrate(
