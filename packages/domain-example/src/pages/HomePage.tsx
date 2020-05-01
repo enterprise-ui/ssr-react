@@ -23,7 +23,6 @@ type TProps = IOwnProps & RouteComponentProps<IRouteProps>;
 @AsyncDecorator
 class HomePage extends React.Component<TProps, IState> {
     static async getInitialProps({store}) {
-        console.log('HomePage.getInitialProps');
         fetchArticles()(store.dispatch);
 
         return {};
@@ -49,14 +48,14 @@ class HomePage extends React.Component<TProps, IState> {
     renderHead = () => {
         return (
             <Helmet key={Math.random()}>
-                <title>SSR Daily News - ilker ALTIN</title>
-                <meta property="og:title" content="SSR Daily News - ilker ALTIN" />
+                <title>App News</title>
+                <meta property="og:title" content="App News" />
                 <meta
                     name="description"
                     content="Breaking news,latest articles, popular articles from most popular news websites of the world"
                 />
                 <meta name="robots" content="index, follow" />
-                <link rel="canonical" href="https://react-ssr-ilker.herokuapp.com" />
+                {/* <link rel="canonical" href="https://react-ssr-ilker.herokuapp.com" /> */}
             </Helmet>
         );
     };

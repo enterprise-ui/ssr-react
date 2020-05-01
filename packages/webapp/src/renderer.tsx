@@ -10,7 +10,7 @@ import {renderRoutes} from 'react-router-config';
 import {StaticRouter} from 'react-router-dom';
 import {Store} from 'redux';
 import serialize from 'serialize-javascript';
-import {routes} from '../client/Routes';
+import {routes} from './client/Routes';
 
 export default (req: Request, store: Store, context: StaticRouterContext) => {
     const statsFile = path.resolve('./public/loadable-stats.json');

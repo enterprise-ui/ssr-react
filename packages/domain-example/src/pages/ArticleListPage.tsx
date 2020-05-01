@@ -24,7 +24,6 @@ type TProps = IOwnProps & RouteComponentProps<IRouteProps>;
 @AsyncDecorator
 class ArticleListPage extends React.Component<TProps, IState> {
     static async getInitialProps({store, props}) {
-        console.log('ArticleListPage.getInitialProps');
         fetchArticles(props.match.params.id)(store.dispatch);
 
         return {};
@@ -64,7 +63,7 @@ class ArticleListPage extends React.Component<TProps, IState> {
                     content={`Latest ${category} articles, popular articles from most popular news websites of the world`}
                 />
                 <meta name="robots" content="index, follow" />
-                <link rel="canonical" href={`https://react-ssr-ilker.herokuapp.com${location.pathname}`} />
+                {/* <link rel="canonical" href={`https://react-ssr-ilker.herokuapp.com${location.pathname}`} /> */}
             </Helmet>
         );
     };

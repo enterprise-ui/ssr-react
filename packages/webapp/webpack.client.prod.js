@@ -39,7 +39,7 @@ const config = {
 
     plugins: [
         new LoadablePlugin(),
-        new BundleAnalyzerPlugin(),
+        // new BundleAnalyzerPlugin(),
         // new CleanWebpackPlugin(),
         // new CompressionPlugin(),
     ],

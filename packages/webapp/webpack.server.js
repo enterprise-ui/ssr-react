@@ -14,7 +14,9 @@ const config = {
 
     mode: 'development',
 
-    entry: path.resolve(__dirname, './src/index.ts'),
+    entry: {
+        main: path.resolve(__dirname, './src/index.ts'),
+    },
 
     output: {
         filename: 'server.js',

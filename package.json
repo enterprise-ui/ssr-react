@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "SSR React Framework",
   "scripts": {
+    "analyze": "cd ./packages/webapp && yarn webpack-prod",
     "bootstrap": "lerna bootstrap",
     "build": "lerna run core:build && lerna run example:build --stream",
     "start": "lerna run webapp:start --parallel"

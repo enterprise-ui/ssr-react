@@ -19,7 +19,6 @@ function withAsync<TProps, C extends TReactComponentType<TProps>>(TargetComponen
     EnhancedComponent.displayName = `withAsync.(${TargetComponent.displayName || TargetComponent.name || 'TargetComponent'})`;
 
     EnhancedComponent.getInitialProps = async ({props, store}) => {
-        console.log('withAsync.getInitialProps');
         const {isServer} = props;
         let staticProps = {};
 
@@ -30,8 +29,7 @@ function withAsync<TProps, C extends TReactComponentType<TProps>>(TargetComponen
 
             if (isServer) {
                 store.dispatch(END);
-                const resp = await store.sagaTask.toPromise();
-                console.log();
+                await store.sagaTask.toPromise();
             }
         }
 

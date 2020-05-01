@@ -15,7 +15,7 @@ const Header: React.FunctionComponent = () => {
                 <div className="container">
                     <div className="nav-wrapper">
                         <a href="/" className="brand-logo">
-                            SSR News
+                            News
                         </a>
                         <a href="javascript:void(0)" onClick={toggleMenu} className="sidenav-trigger right">
                             <i className="material-icons">menu</i>

@@ -8,7 +8,7 @@ module.exports = {
         articles: './src/pages/ArticleListPage.tsx',
         home: './src/pages/HomePage.tsx',
         index: './src/index.ts',
-        routes: './src/routes.ts'
+        routes: './src/routes.ts',
     },
 
     output: {
@@ -54,10 +54,12 @@ module.exports = {
             commonjs: '@babel/runtime/regenerator',
             commonjs2: '@babel/runtime/regenerator',
         },
+        'isomorphic-fetch': 'isomorphic-fetch',
         'react-router-config': 'react-router-config',
         'react-router-dom': 'ReactRouterDOM',
         'react-lazy-load-image-component': 'react-lazy-load-image-component',
         'react-helmet': 'react-helmet',
+        '@ssr-react/core': '@ssr-react/core'
     },
 
     plugins: [new CopyPlugin([{from: path.resolve(__dirname, './src/cjs/index.js'), to: path.resolve(__dirname, 'public')}])],

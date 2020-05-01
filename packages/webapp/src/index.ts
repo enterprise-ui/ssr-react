@@ -6,7 +6,7 @@ import {StaticRouterContext} from 'react-router';
 import {matchRoutes} from 'react-router-config';
 import {IMatchedRouteLoadable, TRouteComponent} from './client/Models';
 import {paths, routes as Routes} from './client/Routes';
-import renderer from './helpers/renderer';
+import renderer from './renderer';
 import createStore from './store/createStore';
 
 const app = express();
@@ -17,7 +17,7 @@ function shouldCompress(req, res) {
 }
 
 function handleRequest(req: Request, res: Response, next: NextFunction) {
-    const store = createStore({isServer: true, req});
+    const store = createStore();
 
     const routes: IMatchedRouteLoadable[] = matchRoutes(Routes, req.path);
 
@@ -37,13 +37,8 @@ function handleRequest(req: Request, res: Response, next: NextFunction) {
                 return loadable.getInitialProps ? loadable.getInitialProps(ctx) : null;
             });
 
-            console.log(promises);
-
             Promise.all(promises)
-                .then((props) => {
-                    console.log('renderer');
-                    console.log(props);
-                    console.log(store.getState());
+                .then(() => {
                     const context: StaticRouterContext = {};
                     const content = renderer(req, store, context);
 

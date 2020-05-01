@@ -7,6 +7,9 @@ interface IStaticProps {
 }
 
 export interface IStore extends Store {
+    closeSagas?: any;
+    rootTask?: Task;
+    runSaga?: any;
     sagaTask?: Task;
 }
 
