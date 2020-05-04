@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import {useStore} from 'react-redux';
 import {END} from 'redux-saga';
 import {IReactFunctionComponent, TReactComponentType} from './Models';
-import {isInitialRender, setInitialRender} from './Utils';
+import {isInitialRender, qs2json, setInitialRender} from './Utils';
 
 function withAsync<TProps, C extends TReactComponentType<TProps>>(TargetComponent: C): C {
     const EnhancedComponent: IReactFunctionComponent<TProps> = (props) => {
@@ -19,12 +19,13 @@ function withAsync<TProps, C extends TReactComponentType<TProps>>(TargetComponen
     EnhancedComponent.displayName = `withAsync.(${TargetComponent.displayName || TargetComponent.name || 'TargetComponent'})`;
 
     EnhancedComponent.getInitialProps = async ({props, store}) => {
-        const {isServer} = props;
+        const {isServer, location} = props;
+        const routeProps = {queryParams: qs2json(location.search)};
         let staticProps = {};
 
         if (!isInitialRender(isServer)) {
             if (TargetComponent.getInitialProps) {
-                staticProps = await TargetComponent.getInitialProps({store, props});
+                staticProps = await TargetComponent.getInitialProps({store, props: {...props, ...routeProps}});
             }
 
             if (isServer) {
@@ -35,7 +36,7 @@ function withAsync<TProps, C extends TReactComponentType<TProps>>(TargetComponen
 
         setInitialRender(isServer);
 
-        return {...staticProps, ...props};
+        return {...staticProps};
     };
 
     return EnhancedComponent as C;

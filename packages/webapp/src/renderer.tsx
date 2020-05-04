@@ -12,13 +12,13 @@ import {Store} from 'redux';
 import serialize from 'serialize-javascript';
 import {routes} from './client/Routes';
 
-export default (req: Request, store: Store, context: StaticRouterContext) => {
+export default (req: Request, store: Store, context: StaticRouterContext, staticProps?: any) => {
     const statsFile = path.resolve('./public/loadable-stats.json');
     const extractor = new ChunkExtractor({statsFile});
     const jsx = extractor.collectChunks(
         <Provider store={store}>
             <StaticRouter location={req.path} context={context}>
-                <div>{renderRoutes(routes)}</div>
+                <div>{renderRoutes(routes, staticProps)}</div>
             </StaticRouter>
         </Provider>
     );
@@ -41,6 +41,7 @@ export default (req: Request, store: Store, context: StaticRouterContext) => {
                 <div id="root">${content}</div>
                 <script>
                     window.__PRELOADED_STATE__ = ${serialize(store.getState()).replace(/</g, '\\u003c')}
+                    window.__EXTRA_PROPS__ = ${JSON.stringify(staticProps)}
                 </script>
                 ${scriptTags}
                 <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">

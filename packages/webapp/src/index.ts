@@ -27,20 +27,21 @@ function handleRequest(req: Request, res: Response, next: NextFunction) {
         return loadable.load ? loadable.load() : new Promise((resolve) => resolve(loadable));
     });
 
+    const routeProps = {location: {search: req.url}, match: {params: {id: req.params.id}}};
+    const ctx = {props: {...routeProps, isServer: true}, store};
+
     Promise.all(preloadAll)
         .then((components) => {
             const promises = components.map((component) => {
                 const loadable = (component as any).default || component;
-                const routeProps = {match: {params: {id: req.params.id}}};
-                const ctx = {props: {...routeProps, isServer: true}, store};
 
                 return loadable.getInitialProps ? loadable.getInitialProps(ctx) : null;
             });
 
             Promise.all(promises)
-                .then(() => {
+                .then((staticProps) => {
                     const context: StaticRouterContext = {};
-                    const content = renderer(req, store, context);
+                    const content = renderer(req, store, context, {...staticProps, isServer: false});
 
                     if (context.statusCode === 404) {
                         res.status(404);

@@ -1,9 +1,14 @@
 import React from 'react';
+import {RouteComponentProps} from 'react-router-dom';
 import {Store} from 'redux';
 import {Task} from 'redux-saga';
 
 interface IStaticProps {
     isServer?: boolean;
+}
+
+interface IRouteProps {
+    queryParams?: any;
 }
 
 export interface IStore extends Store {
@@ -14,16 +19,16 @@ export interface IStore extends Store {
 }
 
 export interface IContext<TProps> {
-    props?: IStaticProps & TProps;
+    props?: IStaticProps & IRouteProps & RouteComponentProps & TProps;
     store: IStore;
 }
 
 export type TGetInitialPropsMethod<TProps> = (ctx: IContext<TProps>) => Promise<IStaticProps>;
 
-export type TReactComponentType<TProps> = React.ComponentType<TProps> & {
+export type TReactComponentType<TProps> = React.ComponentType<TProps & RouteComponentProps> & {
     getInitialProps?: TGetInitialPropsMethod<TProps>;
 };
 
-export interface IReactFunctionComponent<TProps> extends React.FunctionComponent<TProps> {
+export interface IReactFunctionComponent<TProps> extends React.FunctionComponent<TProps & RouteComponentProps> {
     getInitialProps?: TGetInitialPropsMethod<TProps>;
 }

@@ -14,7 +14,7 @@ loadableReady(() => {
     ReactDOM.hydrate(
         <Provider store={store}>
             <BrowserRouter>
-                <div>{renderRoutes(routes)}</div>
+                <div>{renderRoutes(routes, window.__EXTRA_PROPS__)}</div>
             </BrowserRouter>
         </Provider>,
         document.querySelector('#root')
